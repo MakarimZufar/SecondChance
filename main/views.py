@@ -38,4 +38,4 @@ def show_main(request):
             }
         ]
     }
-    return render(request, 'main.html', context)  # Ganti 'template_name.html' dengan nama template yang sesuai
+    return render(request, 'main.html', context)  

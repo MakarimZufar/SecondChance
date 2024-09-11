@@ -4,6 +4,10 @@ SecondChance adalah platform e-commerce yang menjual barang preloved dengan foku
 
 ## tugas 2
 
+### tautan ke aplikasi
+
+`http://makarim-zufar-secondchance.pbp.cs.ui.ac.id/`
+
 ### membuat project django baru dan install semua requirements
 
 saya membuat project di direktori yang saya tentukan, lalu saya menjalankan perintah untuk membuat virtual environtment

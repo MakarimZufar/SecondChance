@@ -56,7 +56,7 @@ python manage.py startapp main
 ### melakukan routing pada proyek agar dapat menjalankan main
 
 setelah saya berhasil membuat aplikasi main, saya melakukan routing pada SecondChance agar bisa berjalan di `setting.py`
-![Installed Apps](images_readme/routing_main_apps.png)
+![Installed Apps](Images_readme/routing_main_apps.png)
 
 ### membuat models
 
@@ -145,7 +145,7 @@ ALLOWED_HOSTS = ["localhost","127.0.0.1","makarim-zufar-SecondChance.pbp.cs.ui.a
 
 ### bagan yang berisi request client ke web
 
-![flowchart](images_readme/Flowchart.png)
+![flowchart](Images_readme/Flowchart.png)
 
 ### fungsi git
 

@@ -15,26 +15,9 @@ def show_main(request):
     context = {
         "products":[
             {
-                "name": "iphone 11",
-                "description": "This is a very good phone",
-                "price": 5000000,
-                "stock": 10,
-                "category": "smartphone"
-            },
-            {
-                "name": "iphone 12",
-                "description": "This is another good phone",
-                "price": 6000000,
-                "stock": 10,
-                "category": "smartphone"
-            },
-            {
-                "name": "iphone 13",
-                "description": "This is another good phone",
-                "price": 7000000,
-                "stock": 10,
-                "category": "smartphone"
-                
+                "nama": "Makarim Zufar Prambudyo",
+                "npm": "2306241751",
+                "kelas": "PBP D",
             }
         ]
     }

@@ -1,100 +1,124 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SecondChance</title>
-    <style>
-        /* Global Styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ffffff; /* Latar belakang putih */
-            margin: 0;
-            padding: 20px;
-            color: #333333; /* Warna teks abu gelap */
+{% extends "base.html" %} {% block title %}main{% endblock %} {% block style %}
+<style>
+    /* Style untuk blok konten utama */
+    body {
+        background-color: #f0fff0; /* Hijau muda untuk latar belakang */
+        color: white; /* Warna teks putih */
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Style untuk heading utama */
+    h1 {
+        color: #32cd32; /* Hijau terang untuk heading */
+        font-size: 36px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Style untuk paragraf deskripsi */
+    p {
+        font-size: 18px;
+        text-align: center;
+        color: #fff; /* Warna teks putih */
+        margin-bottom: 20px;
+    }
+
+    /* Style untuk produk */
+    .product {
+        background-color: #32cd32; /* Hijau terang sebagai latar belakang produk */
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 600px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style untuk nama produk */
+    .product h1 {
+        color: white; /* Teks putih untuk nama produk */
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    /* Style untuk kategori, stok, dan harga produk */
+    .product h3 {
+        color: #fff; /* Teks putih */
+        font-size: 18px;
+        margin: 5px 0;
+    }
+
+    /* Style untuk deskripsi produk */
+    .product p {
+        font-size: 16px;
+        color: #f0fff0; /* Warna hijau muda untuk deskripsi */
+    }
+
+    .keterangan p {
+        color: black;
+    }
+
+    .product .price {
+        color: #ff0000;
+    }
+
+    .add_product {
+        background-color: #28a745; /* Warna latar belakang hijau */
+        border: none; /* Menghilangkan border */
+        color: white; /* Warna teks putih */
+        padding: 12px 24px; /* Padding pada tombol */
+        font-size: 16px; /* Ukuran font */
+        cursor: pointer; /* Mengubah kursor menjadi pointer saat hover */
+        border-radius: 5px; /* Membuat sudut tombol melengkung */
+        transition: background-color 0.3s; /* Animasi transisi saat hover */
+    }
+
+    .add_product:hover {
+        background-color: #218838; /* Warna latar belakang saat tombol di-hover */
+    }
+
+    /* Responsive untuk layar lebih kecil */
+    @media (max-width: 768px) {
+        .product {
+            max-width: 100%;
+            padding: 15px;
         }
 
         h1 {
-            text-align: center;
-            color: #4CAF50; /* Warna hijau cerah untuk judul */
-            margin-bottom: 30px;
-            font-size: 36px;
+            font-size: 28px;
         }
 
-        /* Product Container Styling */
-        .product-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
+        .product h1 {
+            font-size: 22px;
         }
 
-        /* Product Card Styling */
-        .product {
-            background-color: #f9f9f9; /* Latar belakang produk abu muda */
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            width: 300px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan ringan */
-            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
-        }
-
-        /* Hover Effect */
-        .product:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar saat di-hover */
-            background-color: #f1f1f1; /* Warna latar berubah sedikit lebih gelap saat di-hover */
-        }
-
-        /* Product Text Styling */
-        .product h2 {
-            color: #333333; /* Warna teks abu gelap untuk nama produk */
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .product h3 {
-            color: #FF6347; /* Warna oranye kemerahan untuk kategori */
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
+        .product h3,
         .product p {
             font-size: 16px;
-            color: #666666; /* Warna teks abu yang lebih terang */
-            margin-bottom: 10px;
         }
+    }
+</style>
+{% endblock style%} {% block content %}
+<h1>SecondChance</h1>
+<div class="keterangan">
+    <p>
+        SecondChance is a web application that allows users to donate their used
+        items to those in need.
+    </p>
+    <p>
+        SecondChance is a project by {{nama}} with npm {{npm}} class {{kelas}}
+    </p>
+</div>
 
-        .product p:last-child {
-            font-weight: bold;
-            color: #4CAF50; /* Warna hijau cerah untuk harga dan stok */
-        }
+<a class="add_product" href="{% url 'main:add_product'%}">add product</a>
 
-        /* Responsiveness for Mobile, Tablet, and Laptop */
-        @media (max-width: 1024px) {
-            .product {
-                width: 45%;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .product {
-                width: 100%;
-            }
-        }
-    </style>
-</head>
-<body>
-    <h1>SecondChance</h1>
-    <div class="product-container">
-        {% for product in products %}
-            <div class="product">
-                <h2>{{ product.nama }}</h2>
-                <h3>{{ product.npm }}</h3>
-                <p>{{ product.kelas }}</p>
-            </div>
-        {% endfor %}
-    </div>
-</body>
-</html>
+{% for product in products %}
+<div class="product">
+    <h1>{{ product.name }}</h1>
+    <h3>{{product.category}}</h3>
+    <h3>{{product.stock}}</h3>
+    <h3 class="price">{{product.price}}</h3>
+    <p>{{ product.description }}</p>
+</div>
+{% endfor %} {% endblock %}

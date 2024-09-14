@@ -524,7 +524,11 @@ urlpatterns = [
 
 - HTML
 ![html](Images_readme/HTML.png)
+- JSON
 ![json](Images_readme/JSON.png)
+- XML
 ![xml](Images_readme/XML.png)
+- JSON by ID
 ![json by id](Images_readme/JSON_id.png)
+- XML by ID
 ![xml by id](Images_readme/XML_id.png)

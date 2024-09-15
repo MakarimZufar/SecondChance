@@ -1,100 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SecondChance</title>
-    <style>
-        /* Global Styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ffffff; /* Latar belakang putih */
-            margin: 0;
-            padding: 20px;
-            color: #333333; /* Warna teks abu gelap */
-        }
+{% extends "base.html" %} 
+{% block title %}main{% endblock %} 
+{% block content %}
+<h1>SecondChance</h1>
+<div class="keterangan">
+    <p>
+        SecondChance is a website for selling unused items that are still of good quality to others.
+    </p>
+    <p>
+        SecondChance is a project by {{nama}} with npm {{npm}} class {{kelas}}
+    </p>
+</div>
 
-        h1 {
-            text-align: center;
-            color: #4CAF50; /* Warna hijau cerah untuk judul */
-            margin-bottom: 30px;
-            font-size: 36px;
-        }
+<a class="add_product" href="{% url 'main:add_product'%}">add product</a>
 
-        /* Product Container Styling */
-        .product-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        /* Product Card Styling */
-        .product {
-            background-color: #f9f9f9; /* Latar belakang produk abu muda */
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            width: 300px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan ringan */
-            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
-        }
-
-        /* Hover Effect */
-        .product:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar saat di-hover */
-            background-color: #f1f1f1; /* Warna latar berubah sedikit lebih gelap saat di-hover */
-        }
-
-        /* Product Text Styling */
-        .product h2 {
-            color: #333333; /* Warna teks abu gelap untuk nama produk */
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .product h3 {
-            color: #FF6347; /* Warna oranye kemerahan untuk kategori */
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .product p {
-            font-size: 16px;
-            color: #666666; /* Warna teks abu yang lebih terang */
-            margin-bottom: 10px;
-        }
-
-        .product p:last-child {
-            font-weight: bold;
-            color: #4CAF50; /* Warna hijau cerah untuk harga dan stok */
-        }
-
-        /* Responsiveness for Mobile, Tablet, and Laptop */
-        @media (max-width: 1024px) {
-            .product {
-                width: 45%;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .product {
-                width: 100%;
-            }
-        }
-    </style>
-</head>
-<body>
-    <h1>SecondChance</h1>
-    <div class="product-container">
+<table style="border:1px solid black;">
+    <thead>
+        <tr>
+            <th>name</th>
+            <th>category</th>
+            <th>stock</th>
+            <th>price</th>
+            <th>description</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for product in products %}
-            <div class="product">
-                <h2>{{ product.nama }}</h2>
-                <h3>{{ product.npm }}</h3>
-                <p>{{ product.kelas }}</p>
-            </div>
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.stock }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.description }}</td>
+        </tr>
         {% endfor %}
-    </div>
-</body>
-</html>
+    </tbody>
+</table>
+
+{% endblock %}

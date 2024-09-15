@@ -218,3 +218,317 @@ Banyak perusahaan besar, termasuk Instagram, Pinterest, Mozilla, dan Disqus, men
 ### Mengapa model pada Django disebut sebagai ORM?
 
 Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena Django menggunakan pendekatan ORM untuk menghubungkan dan memetakan antara objek di dalam kode Python dengan tabel di dalam basis data relasional. ORM bertujuan untuk menghindari penulisan langsung query SQL dengan menggunakan bahasa pemrograman Python, yang lebih mudah dipahami dan digunakan oleh pengembang.
+
+## tugas 3
+
+### mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
+
+Data delivery, atau pengiriman data, adalah proses mentransfer data dari satu titik ke titik lain dalam suatu sistem atau platform. Dalam pengembangan dan implementasi platform, data delivery memainkan peran krusial karena alasan-alasan berikut:
+
+1.Komunikasi Efisien Antar Komponen Sistem
+
+- Integrasi Layanan: Platform modern sering terdiri dari berbagai komponen atau layanan mikro yang harus berkomunikasi satu sama lain. Data delivery memastikan pertukaran data yang efisien antara komponen-komponen ini.
+
+- Konsistensi Data: Pengiriman data yang tepat waktu dan akurat menjaga konsistensi informasi di seluruh sistem, menghindari inkonsistensi yang dapat menyebabkan kesalahan.
+
+2.Pengalaman Pengguna yang Lebih Baik
+
+- Responsivitas: Pengiriman data yang cepat meningkatkan respons sistem terhadap permintaan pengguna, memberikan pengalaman yang lebih lancar dan memuaskan.
+- Personalisasi Konten: Data delivery memungkinkan platform untuk menyediakan konten yang dipersonalisasi berdasarkan data pengguna yang terkini.
+
+3.Skalabilitas dan Kinerja Sistem
+
+- Pengelolaan Beban Kerja: Dengan mekanisme pengiriman data yang efektif, platform dapat menangani peningkatan jumlah pengguna dan permintaan tanpa menurunkan kinerja.
+- Distribusi Data: Data dapat disebarkan ke berbagai server atau lokasi geografis untuk mengoptimalkan akses dan mengurangi latensi.
+
+4.Keamanan dan Kepatuhan
+
+- Proteksi Data: Data delivery yang aman melibatkan enkripsi dan protokol keamanan untuk melindungi data selama transmisi.
+- Kepatuhan Regulasi: Memastikan pengiriman data sesuai dengan standar dan regulasi (seperti GDPR) untuk menghindari penalti hukum.
+
+5.Pengambilan Keputusan Berbasis Data
+
+- Analitik Real-Time: Pengiriman data yang cepat memungkinkan analisis data secara real-time untuk pengambilan keputusan yang lebih informatif.
+- Pembelajaran Mesin: Model AI dan machine learning memerlukan data yang terus diperbarui untuk meningkatkan akurasi dan kinerja.
+
+6.Interoperabilitas dan Integrasi
+
+- Integrasi Pihak Ketiga: Data delivery memfasilitasi integrasi dengan layanan dan API eksternal, memperluas fungsionalitas platform.
+- Standar Komunikasi: Menggunakan protokol standar dalam pengiriman data memastikan kompatibilitas dan interoperabilitas antar sistem.
+
+7.Efisiensi Operasional
+
+- Automasi Proses: Data delivery memungkinkan automasi berbagai proses bisnis, mengurangi kebutuhan intervensi manual dan potensi kesalahan manusia.
+- Pemantauan dan Pemeliharaan: Data yang dikirimkan juga digunakan untuk pemantauan sistem, membantu dalam deteksi dini masalah dan pemeliharaan proaktif.
+
+### Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
+
+menurut pendapat pribadi JSON lebih baik di banding XML dengan beberapa pertimbangan berikut:
+
+1. Integrasi dengan JavaScript
+
+- JSON dirancang berdasarkan sintaks objek JavaScript, membuatnya sangat mudah digunakan dalam aplikasi web modern yang banyak menggunakan JavaScript.
+- Parsing dan stringifying JSON di JavaScript dapat dilakukan dengan fungsi bawaan tanpa perlu library tambahan.
+
+2.Performansi dan Efisiensi
+
+- JSON lebih ringan dan cepat untuk diparse dibandingkan XML, yang meningkatkan performa aplikasi terutama dalam komunikasi client-server.
+- Ukuran data yang lebih kecil mengurangi waktu loading dan konsumsi bandwidth.
+
+3.Kemudahan Penggunaan
+
+- Sintaks JSON yang sederhana membuatnya lebih mudah dipahami dan ditulis oleh pengembang.
+- JSON lebih straightforward untuk merepresentasikan struktur data umum seperti array dan objek, yang sering digunakan dalam pemrograman.
+
+4.Adopsi yang Luas dalam API dan Layanan Web
+
+- Banyak API modern, terutama RESTful API, menggunakan JSON sebagai format default untuk pertukaran data.
+- Ekosistem pengembangan web telah bergeser ke arah stack teknologi yang lebih condong ke JSON.
+
+5.Kompatibilitas Cross-Platform
+
+- JSON didukung oleh hampir semua bahasa pemrograman modern, memudahkan integrasi antara berbagai sistem dan platform.
+- Library dan tool untuk bekerja dengan JSON tersedia secara luas dan sering kali merupakan bagian dari pustaka standar bahasa.
+
+6.Tren dan Evolusi Teknologi
+
+- Dengan munculnya teknologi seperti Node.js, React, dan framework JavaScript lainnya, JSON menjadi pilihan alami untuk data interchange.
+- Perkembangan layanan cloud dan microservices yang membutuhkan komunikasi cepat dan efisien juga mendorong penggunaan JSON.
+
+### Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?
+
+Dalam framework Django, form digunakan untuk mempermudah proses pengambilan input dari pengguna, melakukan validasi data, dan mempersiapkan data tersebut untuk diproses lebih lanjut, seperti disimpan ke dalam database. Metode `is_valid()` adalah salah satu metode penting yang digunakan dalam siklus hidup sebuah form di Django. Method `is_valid()` juga berfungsi sebagai keamanan aplikasi untuk mencegah injeksi kode dan sanitasi data.
+
+### Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+
+`csrf_token` digunakan untuk mencegah Cross-Site Request Forgery (CSRF), sebuah jenis serangan keamanan di mana penyerang mencoba membuat pengguna tanpa disadari melakukan tindakan tidak diinginkan di sebuah situs web tempat mereka telah terautentikasi. CSRF adalah salah satu bentuk serangan yang sangat berbahaya karena memungkinkan penyerang mengirim permintaan berbahaya atas nama pengguna yang telah login tanpa sepengetahuan mereka.
+
+Dalam konteks Django, `csrf_token` adalah mekanisme pertahanan yang memastikan bahwa setiap permintaan POST yang dikirim oleh form berasal dari sumber yang sah, yaitu pengguna yang berinteraksi langsung dengan aplikasi web melalui browser mereka.
+
+yang terjadi jika tidak menambahkan `csrf_token` pada form Django:
+
+1. Terjadi Serangan CSRF:
+
+Tanpa csrf_token, siapa pun bisa membuat permintaan POST ke server tanpa harus melewati form asli. Penyerang bisa memanfaatkan kelemahan ini untuk memaksa pengguna melakukan tindakan di aplikasi tanpa persetujuan mereka.
+Misalnya, penyerang bisa mengirimkan permintaan untuk mengubah kata sandi, melakukan transaksi, atau menghapus data penting atas nama pengguna yang sudah login.
+
+2.Data dan Akun Pengguna Terancam:
+
+Pengguna yang sudah login di suatu situs web bisa menjadi target serangan tanpa mereka sadari. Penyerang dapat mengirim permintaan atas nama mereka untuk melakukan tindakan berbahaya, seperti mentransfer uang, mengubah informasi akun, atau melakukan tindakan administratif lainnya.
+
+3.Pelanggaran Keamanan yang Serius:
+
+Tanpa perlindungan CSRF, aplikasi web menjadi lebih rentan terhadap berbagai bentuk serangan yang bisa mengekspos data pengguna, merusak integritas sistem, atau memungkinkan tindakan berbahaya dilakukan di dalam aplikasi.
+
+bagaimana penyerang memanfaatkan kelemahan CSRF?
+
+Cross-Site Request Forgery (CSRF) adalah jenis serangan di mana penyerang mengirimkan permintaan palsu ke server web atas nama pengguna yang telah login, tanpa sepengetahuan atau persetujuan pengguna tersebut. Berikut ini cara CSRF dapat dieksploitasi jika csrf_token tidak digunakan:
+
+1.Menyusun Permintaan Berbahaya:
+
+Penyerang dapat membuat situs web atau email yang berisi link atau skrip yang akan mengirim permintaan POST ke situs target.
+Jika pengguna yang telah login ke situs target secara tidak sengaja mengklik link tersebut atau mengakses halaman penyerang, permintaan tersebut akan dikirimkan ke server target tanpa pengguna menyadarinya.
+
+2.Mengambil Keuntungan dari Otentikasi Otomatis:
+
+Jika pengguna sudah login di situs web, browser mereka akan secara otomatis mengirimkan cookie otentikasi bersama dengan permintaan POST ke server. Server mungkin akan mempercayai permintaan ini karena pengguna sudah terotentikasi.
+Tanpa validasi csrf_token, server tidak memiliki cara untuk membedakan apakah permintaan tersebut benar-benar dikirim oleh pengguna yang sah melalui form yang asli atau oleh penyerang dari situs lain.
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)
+
+#### membuat `base.html` sebagai template untuk template lain nya
+
+`base.html` digunakan sebagai html dasar yang akan di isikan konten dari template lain untuk menampilkan konten yang di inginkan
+
+```html
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}base website{% endblock %}</title>
+    </head>
+    <body>
+        <main>{% block content %} {% endblock content %}</main>
+    </body>
+</html>
+```
+
+#### Mengedit `TEMPLATES` yang ada pads `settings.py` supaya `base.html` terdeteksi sebagai berkas template
+
+kita harus edit `settings.py` agar `tempates` yang berisi `base.html` dapat terbaca
+
+```bash
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
+```
+
+#### Mengubah `main.html` supaya meng-extend dari `base.html`
+
+karena sudah ada `base.html` di `main.html` kita fokus untuk menampilkan konten yg berhubungan dengan `show_main`
+
+```html
+{% extends "base.html" %} 
+{% block title %}main{% endblock %} 
+{% block content %}
+<h1>SecondChance</h1>
+<div class="keterangan">
+    <p>
+        SecondChance is a website for selling unused items that are still of good quality to others.
+    </p>
+    <p>
+        SecondChance is a project by {{nama}} with npm {{npm}} class {{kelas}}
+    </p>
+</div>
+
+<a class="add_product" href="{% url 'main:add_product'%}">add product</a>
+
+<table style="border:1px solid black;">
+    <thead>
+        <tr>
+            <th>name</th>
+            <th>category</th>
+            <th>stock</th>
+            <th>price</th>
+            <th>description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.stock }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.description }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+```
+
+#### Membuat `forms.py` untuk membuat struktur form dan meng-import form tersebut pada `views.py`
+
+```python
+from django.forms import ModelForm
+from main.models import Product
+
+class ProductEntry(ModelForm):
+    class Meta:
+        model = Product
+        fields = ['name', 'stock', 'category', 'price', 'description']
+```
+
+#### menambahkan fungsi pada `views.py` dan memodif fungsi
+
+memodif fungsi `show_main` agar dapat menampilkan product dari database
+
+```python
+def show_main(request):
+    context = {
+        "nama": "Makarim Zufar Prambudyo",
+        "npm": "2306241751",
+        "kelas": "PBP D",
+        "products": Product.objects.all()
+    }
+    return render(request, 'main.html', context)  
+```
+
+membuat fungsi `add_product` agar bisa menambahkan produk
+
+```python
+def add_product(request):
+    if request.method == 'POST':
+        form = ProductEntry(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('main:show_main')
+    else:
+        form = ProductEntry()
+    return render(request, 'add_product.html', {'form': form})
+```
+
+membuat fungsi `show_xml`, `show_xml_by_id`, `show_json`, `show_json_by_id`
+
+```python
+def show_xml(request):
+    data = Product.objects.all()
+    return HttpResponse(serializers.serialize('xml', data), content_type='application/xml') 
+
+def show_json(request):
+    data = Product.objects.all()
+    return HttpResponse(serializers.serialize('json', data), content_type='application/json')
+
+def show_xml_by_id(request, id):
+    data = Product.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize('xml', data), content_type='application/xml')
+
+def show_json_by_id(request, id):
+    data = Product.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize('json', data), content_type='application/json')
+```
+
+#### Membuat `add_product.html`
+
+membuat konten untuk menginput product ke database
+
+```pyhton
+{% extends 'base.html' %} 
+{% block title %}Add product{% endblock %} 
+{% block content %}
+<h1>Add New Mood Entry</h1>
+
+<form method="POST">
+{% csrf_token %}
+<table>
+    {{ form.as_table }}
+    <tr>
+    <td></td>
+    <td>
+        <input type="submit" value="Add Mood Entry" />
+    </td>
+    </tr>
+</table>
+</form>
+
+{% endblock %}
+```
+
+#### menambahkan path di `urls.py`
+
+agar fungsi pada views bisa di akses kita harus membuat path yang merujuk ke fungsi itu
+
+``` python
+from django.urls import path
+from main.views import show_main, show_xml, show_xml_by_id, show_json, show_json_by_id,add_product
+
+app_name = "main"
+
+urlpatterns = [
+    path('', show_main, name="show_main"),
+    path('add_product/', add_product, name="add_product"),
+    path('xml/', show_xml, name="show_xml"),
+    path('xml/<int:id>/', show_xml_by_id, name="show_xml_by_id"),
+    path('json/', show_json, name="show_json"),
+    path('json/<int:id>/', show_json_by_id, name="show_json_by_id"),
+]
+```
+
+### Mengakses kelima URL tersebut menggunakan Postman
+
+- HTML
+![html](Images_readme/HTML.png)
+- JSON
+![json](Images_readme/JSON.png)
+- XML
+![xml](Images_readme/XML.png)
+- JSON by ID
+![json by id](Images_readme/JSON_id.png)
+- XML by ID
+![xml by id](Images_readme/XML_id.png)

@@ -482,7 +482,7 @@ membuat konten untuk menginput product ke database
 {% extends 'base.html' %} 
 {% block title %}Add product{% endblock %} 
 {% block content %}
-<h1>Add New Mood Entry</h1>
+<h1>Add New Product</h1>
 
 <form method="POST">
 {% csrf_token %}
@@ -491,7 +491,7 @@ membuat konten untuk menginput product ke database
     <tr>
     <td></td>
     <td>
-        <input type="submit" value="Add Mood Entry" />
+        <input type="submit" value="Add Product" />
     </td>
     </tr>
 </table>

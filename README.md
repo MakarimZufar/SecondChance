@@ -3,6 +3,7 @@
 SecondChance adalah platform e-commerce yang menjual barang preloved dengan fokus pada keberlanjutan dan penghematan.
 
 ## tautan ke aplikasi
+
 [pws](http://makarim-zufar-secondchance.pbp.cs.ui.ac.id/)
 
 [README tugas 2](#tugas-2)

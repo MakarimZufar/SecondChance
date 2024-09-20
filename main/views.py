@@ -18,7 +18,7 @@ from django.http import HttpResponseRedirect
 @login_required(login_url='main:login')
 def show_main(request):
     context = {
-        "nama": "Makarim Zufar Prambudyo",
+        "nama": request.user.username,
         "npm": "2306241751",
         "kelas": "PBP D",
         "products": Product.objects.all(),
@@ -30,7 +30,9 @@ def add_product(request):
     if request.method == 'POST':
         form = ProductEntry(request.POST)
         if form.is_valid():
-            form.save()
+            new_product = form.save(commit=False)
+            new_product.user = request.user
+            new_product.save()
             return redirect('main:show_main')
     else:
         form = ProductEntry()

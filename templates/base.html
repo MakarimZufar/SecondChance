@@ -4,7 +4,9 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{% block title %}base website{% endblock %}</title>
+        {% block meta %}
+        <title></title>
+        {% endblock meta%}
     </head>
     <body>
         <main>{% block content %} {% endblock content %}</main>

@@ -1,13 +1,16 @@
 {% extends "base.html" %} 
 {% block title %}main{% endblock %} 
 {% block content %}
+<div class="user-info">
+    <p>login as {{nama}} last login {{last_login}}</p>
+</div>
 <h1>SecondChance</h1>
 <div class="keterangan">
     <p>
         SecondChance is a website for selling unused items that are still of good quality to others.
     </p>
     <p>
-        SecondChance is a project by {{nama}} with npm {{npm}} class {{kelas}}
+        SecondChance is a project by Makarim Zufar Prambudyo with npm {{npm}} class {{kelas}}
     </p>
 </div>
 
@@ -35,5 +38,8 @@
         {% endfor %}
     </tbody>
 </table>
+<a href="{% url "main:logout" %}">
+    <button>Log Out</button>
+</a>
 
 {% endblock %}

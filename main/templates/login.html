@@ -10,10 +10,11 @@
             {{ form.as_table }}
             <tr>
                 <td></td>
-                <td></td>
+                <td>
+                    <button type="submit">login</button>
+                </td>
             </tr>
         </table>
-        <button type="submit">login</button>
     </form>
     {% if messages %}
     <ul>
@@ -22,10 +23,6 @@
         {% endfor %}
     </ul>
     {% endif %}
-    <ul>
-        <li>
-            <p>don't have account? <a href="{% url "main:registration" %}">Register</a> here</p>
-        </li>
-    </ul>
+    <p>don't have account? <a href="{% url "main:registration" %}">Register</a> here</p>
 {% endblock content %}
 

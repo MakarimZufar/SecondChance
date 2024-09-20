@@ -74,3 +74,8 @@ def user_login(request):
             messages.error(request, "Invalid username or password.")
     form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
+
+def user_logout(request):
+    logout(request)
+    messages.info(request, "You have successfully logged out.")
+    return redirect('main:login')

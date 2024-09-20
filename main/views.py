@@ -9,15 +9,20 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
+import datetime
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 
 
+@login_required(login_url='main:login')
 def show_main(request):
     context = {
         "nama": "Makarim Zufar Prambudyo",
         "npm": "2306241751",
         "kelas": "PBP D",
-        "products": Product.objects.all()
+        "products": Product.objects.all(),
+        "last_login": request.COOKIES.get('last_login')
     }
     return render(request, 'main.html', context)  
 
@@ -67,7 +72,9 @@ def user_login(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}")
-                return redirect('main:show_main')
+                response = HttpResponseRedirect(reverse('main:show_main'))
+                response.set_cookie('last_login', str(datetime.datetime.now()))
+                return response
             else:
                 messages.error(request, "Invalid username or password.")
         else:
@@ -78,4 +85,6 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     messages.info(request, "You have successfully logged out.")
-    return redirect('main:login')
+    response = HttpResponseRedirect(reverse('main:login'))
+    response.delete_cookie('last_login')
+    return response

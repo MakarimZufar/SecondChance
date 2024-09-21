@@ -17,11 +17,13 @@ from django.http import HttpResponseRedirect
 
 @login_required(login_url='main:login')
 def show_main(request):
+    all_products = Product.objects.filter(user=request.user)
+    
     context = {
         "nama": request.user.username,
         "npm": "2306241751",
         "kelas": "PBP D",
-        "products": Product.objects.all(),
+        "products": all_products,
         "last_login": request.COOKIES.get('last_login')
     }
     return render(request, 'main.html', context)  

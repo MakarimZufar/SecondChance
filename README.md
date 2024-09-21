@@ -10,6 +10,8 @@ SecondChance adalah platform e-commerce yang menjual barang preloved dengan foku
 
 [README tugas 3](#tugas-3)
 
+[README tugas 4](#tugas-4)
+
 ## tugas 2
 
 
@@ -537,3 +539,286 @@ urlpatterns = [
 ![json by id](Images_readme/JSON_id.png)
 - XML by ID
 ![xml by id](Images_readme/XML_id.png)
+
+## tugas 4
+
+### Apa itu Django `UserCreationForm`, dan jelaskan apa kelebihan dan kekurangannya?
+
+- Django UserCreationForm adalah salah satu form bawaan di Django yang digunakan untuk membuat user baru. Form ini biasanya digunakan untuk meng-handle registrasi pengguna dalam aplikasi web. UserCreationForm berfungsi untuk menyediakan validasi dasar, seperti memastikan bahwa username unik dan password dikonfirmasi dengan benar.
+
+kelebihan
+1.merupakan bawaan django jadi mudah untuk digunakan
+2.validasi secara otomatis oleh django
+3.keamanan yang terjaga
+4.mudah di kostumisasi
+
+kekurangan
+1.terbatas jika ingin membuat registrasi yang lebih komplex
+2.design yang terkesan kaku
+3.tidak mendukung fitur-fitur tambahan
+
+### Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?
+
+Autentikasi (authentication) adalah proses memverifikasi identitas pengguna, misalnya dengan login menggunakan username dan password. Otorisasi (authorization) adalah proses menentukan hak akses pengguna terhadap sumber daya atau fitur tertentu setelah mereka terautentikasi.
+Keduanya penting karena:
+
+- Autentikasi memastikan bahwa hanya pengguna yang sah dapat mengakses aplikasi.
+
+- Otorisasi memastikan pengguna hanya bisa mengakses bagian yang diizinkan sesuai perannya.
+
+Tanpa keduanya, aplikasi bisa rentan terhadap penyalahgunaan atau pelanggaran keamanan.
+
+### Apa itu cookies dalam konteks aplikasi web, dan bagaimana Django menggunakan cookies untuk mengelola data sesi pengguna?
+
+Cookies dalam aplikasi web adalah file kecil yang disimpan di browser pengguna yang berisi data tertentu untuk melacak atau mengingat informasi selama sesi pengguna.
+Django menggunakan cookies untuk mengelola data sesi pengguna dengan cara menyimpan ID sesi di dalam cookies. ID sesi ini kemudian merujuk ke data sesi yang disimpan di server, seperti informasi login, sehingga pengguna tetap terautentikasi saat berpindah halaman.
+Ini membuat sesi pengguna lebih aman dan efisien!
+
+### Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
+
+Penggunaan cookies tidak sepenuhnya aman secara default dalam pengembangan web. Ada beberapa risiko potensial yang harus diwaspadai:
+
+1. Cross-Site Scripting (XSS): Penyerang bisa menyuntikkan skrip berbahaya untuk mencuri cookies jika aplikasi tidak melindungi dari XSS.
+
+2. Session Hijacking: Jika cookies berisi informasi sesi tidak diamankan dengan baik, penyerang bisa mencuri dan mengambil alih sesi pengguna.
+
+3. Cookie Theft (Pencurian Cookies): Jika cookies tidak diatur sebagai Secure (hanya dikirim melalui HTTPS) dan HttpOnly (tidak bisa diakses JavaScript), mereka bisa dicuri oleh penyerang.
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)
+
+#### membuat form registrasi
+
+untuk mebuat form registrasi kita perlu mengimport beberapa module di `views.py`: 
+
+```pyhton
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+```
+
+dan menambahkan fungsi di `views.py`:
+
+```python
+def registration(request):
+    form = UserCreationForm()
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Account created successfully')
+            return redirect('main:show_main')
+    return render(request, 'registration.html', {'form': form})
+```
+
+menambahkan path di `urls.py`:
+
+```python
+path('registration/', registration, name="registration"),
+```
+
+dan menambahkan html bernama `registration.html`:
+
+```html
+{% extends "base.html" %} 
+{% block meta %}
+    <title>Registration</title>
+{% endblock meta %} 
+{% block content %}
+    <h2>Registration</h2>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <button type="submit">Register</button>
+    </form>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <p>already have account? <a href="{% url "main:login" %}">login</a> here</p>
+{% endblock %}
+```
+
+#### menyelesaikan fungsi login
+
+mengimport beberapa module di `views.py`:
+
+```python
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import authenticate, login
+```
+
+menambahkan fungsi di `views.py`:
+
+```python
+def user_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"You are now logged in as {username}")
+                return redirect('main:show_main')
+            else:
+                messages.error(request, "Invalid username or password.")
+        else:
+            messages.error(request, "Invalid username or password.")
+    form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
+```
+
+menambahkan url untuk routing:
+
+```python
+    path('login/', user_login, name="login"),
+```
+
+menambahkan `login.html`:
+
+```python
+{% extends "base.html" %}
+{% block meta %}
+    <title>login</title>
+{% endblock meta %}
+{% block content %}
+    <h1>login</h1>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td></td>
+                <td>
+                    <button type="submit">login</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <p>don't have account? <a href="{% url "main:registration" %}">Register</a> here</p>
+{% endblock content %}
+```
+
+#### membuat fungsi logout
+
+menambahkan beberapa module
+
+```python
+from django.contrib.auth import logout
+```
+
+menambahkan fungsi pada views
+
+```python
+def user_logout(request):
+    logout(request)
+    messages.info(request, "You have successfully logged out.")
+    return redirect('main:login')
+```
+
+menambahkan path di `urls.py`
+
+```python
+    path('logout/', user_logout, name="logout"),
+```
+
+menambahkan html `login.html`
+
+```html
+<a href="{% url "main:logout" %}">
+    <button>Log Out</button>
+</a>
+```
+
+#### memretriksi halaman main
+
+menambahkan module:
+```python
+from django.contrib.auth.decorators import login_required
+```
+
+menambahkan kode di atas semua fungsi views
+
+```python
+@login_required(login_url='/login')
+```
+
+#### membuat cockies
+
+import module:
+
+```python
+import datetime
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+```
+
+membuat cokie saat login
+
+```python
+response = HttpResponseRedirect(reverse('main:show_main'))
+response.set_cookie('last_login', str(datetime.datetime.now()))
+return response
+```
+
+menghapus cokie saat log out:
+
+```python
+response = HttpResponseRedirect(reverse('main:login'))
+response.delete_cookie('last_login')
+return response
+```
+
+#### menghubungkan model `add_product` dengan `user`
+
+menambahkan module:
+
+```python
+from django.contrib.auth.models import User
+```
+
+menambahkan models dan migrasi
+```python
+user = models.ForeignKey(User, on_delete=models.CASCADE)
+```
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+```python
+new_product = form.save(commit=False)
+new_product.user = request.user
+new_product.save()
+```
+
+ubah value pada fungsi show main:
+
+```python
+"nama": request.user.username,
+```
+
+dan setting pada `setting.py` dengan menambahkan kode ini
+
+```python
+import os
+PRODUCTION = os.getenv("PRODUCTION", False)
+DEBUG = not PRODUCTION
+```

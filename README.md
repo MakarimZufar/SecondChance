@@ -803,6 +803,8 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
+mengubah fungsi add_product di `views.py`
+
 ```python
 new_product = form.save(commit=False)
 new_product.user = request.user

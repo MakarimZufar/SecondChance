@@ -12,13 +12,13 @@ from django.contrib.auth.forms import AuthenticationForm
 import datetime
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from django.conf.urls import handler404
 
 
 
 @login_required(login_url='main:login')
 def show_main(request):
-    all_products = Product.objects.filter(user=request.user)
-    
+    all_products = Product.objects.all()
     context = {
         "nama": request.user.username,
         "npm": "2306241751",
@@ -28,9 +28,16 @@ def show_main(request):
     }
     return render(request, 'main.html', context)  
 
+def show_my_products(request):
+    my_product = Product.objects.filter(user = request.user)
+    context = {
+        "products": my_product,
+    }
+    return render(request, 'my_product.html', context)  
+
 def add_product(request):
     if request.method == 'POST':
-        form = ProductEntry(request.POST)
+        form = ProductEntry(request.POST, request.FILES)
         if form.is_valid():
             new_product = form.save(commit=False)
             new_product.user = request.user
@@ -92,3 +99,37 @@ def user_logout(request):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+
+def edit_product(request, id):
+    product = Product.objects.get(id=id)
+    form = ProductEntry(instance=product)
+    if request.method == 'POST':
+        form = ProductEntry(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('main:show_main'))
+    return render(request, 'edit_product.html', {'form': form})
+
+def delete_product(request, id):
+    product = Product.objects.get(id=id)
+    product.delete()
+    return redirect ('main:show_main')
+
+def confirm_delete(request, id):
+    product = Product.objects.get(id=id)
+    return render(request, 'confirm_delete.html', {'product': product})
+
+def page404(request):
+    return render(request, '404.html', status=404)
+handler404 = page404
+
+def forgot_password(request):
+    return HttpResponse("Password cannot be changed. Please contact the administrator.", status=403)
+
+def about(request):
+    context = {
+        "nama": "Makarim Zufar Prambudyo",
+        "npm": "2306241751",
+        "kelas": "PBP D"
+        }
+    return render(request, 'about.html',context)

@@ -1,0 +1,107 @@
+<div class="container mx-auto px-6">
+    <div class="flex flex-col md:flex-row justify-between">
+        <div class="mb-8 md:mb-0"> <!-- Mengubah jarak margin bawah -->
+            <h2 class="text-lg font-bold text-center md:text-left leading-snug mb-6"> <!-- Menambah margin bawah -->
+                Making the world a better place by giving items
+                a second chance, creating sustainable solutions for all.
+            </h2>
+            <div class="flex space-x-4 mt-4 justify-center md:justify-start">
+                <a href="#" class="hover:text-gray-400"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="hover:text-gray-400"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="hover:text-gray-400"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="hover:text-gray-400"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left">
+            <div>
+                <h3 class="font-bold">Solutions</h3>
+                <ul class="mt-2 space-y-2">
+                    <li><a href="#" class="hover:text-gray-400">Marketing</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Analytics</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Commerce</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Insights</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold">Support</h3>
+                <ul class="mt-2 space-y-2">
+                    <li><a href="#" class="hover:text-gray-400">Pricing</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Doc</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Guides</a></li>
+                    <li><a href="#" class="hover:text-gray-400">API Status</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold">Company</h3>
+                <ul class="mt-2 space-y-2">
+                    <li><a href="#" class="hover:text-gray-400">About</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Blog</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Jobs</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Press</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Partners</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold">Legal</h3>
+                <ul class="mt-2 space-y-2">
+                    <li><a href="#" class="hover:text-gray-400">Claim</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Privacy</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-10 text-center text-gray-500"> <!-- Menambah margin atas di sini -->
+        <p>&copy; 2024 SecondChance, Inc. All rights reserved.</p>
+    </div>
+</div>
+
+<!-- Custom CSS untuk Responsive Footer -->
+<style>
+    @media (max-width: 1024px) {
+        h2 {
+            font-size: 1.25rem;
+        }
+
+        .grid div h3 {
+            font-size: 1rem;
+        }
+
+        .grid div ul li {
+            font-size: 0.9rem;
+        }
+
+        .grid {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .grid div {
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        h2 {
+            font-size: 1rem;
+            margin-bottom: 1.5rem; /* Menambah margin bawah pada slogan */
+        }
+
+        .grid {
+            grid-template-columns: 1fr;
+        }
+
+        .grid div {
+            margin-bottom: 1.5rem;
+        }
+
+        .grid div h3 {
+            font-size: 0.9rem;
+        }
+
+        .grid div ul li {
+            font-size: 0.85rem;
+        }
+    }
+</style>

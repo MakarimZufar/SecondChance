@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}My Products{% endblock %}
+{% block content %}
+<div class="min-h-screen flex flex-col items-center justify-center p-4">
+    {% if products %}
+        <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+            {% for product in products %}
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                
+                <!-- Mengambil Gambar Produk (Hanya ditampilkan jika ada gambar) -->
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-36 object-cover">
+                {% endif %}
+                
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ product.name }}</h3>
+                    
+                    <!-- Kategori Produk dengan Desain Menonjol -->
+                    <div class="flex items-center mb-2">
+                        <span class="inline-block px-2 py-1 bg-gradient-to-r from-purple-500 to-indigo-500 text-white text-xs font-semibold rounded-full uppercase tracking-wide">
+                            {{ product.category }}
+                        </span>
+                    </div>
+                    
+                    <!-- Stock Badge -->
+                    {% if product.is_in_stock %}
+                    <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full uppercase font-semibold tracking-wide">
+                        In Stock
+                    </span>
+                    {% else %}
+                    <span class="inline-block bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full uppercase font-semibold tracking-wide">
+                        Out of Stock
+                    </span>
+                    {% endif %}
+                    
+                    <p class="text-md font-bold text-indigo-600 mt-2">Rp {{ product.price }}</p>
+                    <p class="text-sm text-gray-600 mb-4">Description: {{ product.description }}</p>
+
+                    <!-- Action Buttons -->
+                    <div class="flex justify-between">
+                        <a href="{% url 'main:edit_product' product.pk %}" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-1 px-3 rounded transition-colors duration-300">
+                            Edit
+                        </a>
+                        <a href="{% url 'main:confirm_delete' product.pk %}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded transition-colors duration-300">
+                            Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <!-- Menampilkan Gambar Sedih Jika Tidak Ada Produk -->
+        <div class="flex flex-col items-center space-y-4">
+            <img src="{% static 'image/patrick_login.jpg' %}" alt="No Products" class="w-1/2 h-auto">
+            <p class="text-gray-600 text-lg">Oops, you don't have any products yet!</p>
+            <a href="{% url 'main:add_product' %}" class="bg-green-500 text-white font-bold px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300">Add Your First Product</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock content %}

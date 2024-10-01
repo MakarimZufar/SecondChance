@@ -1,28 +1,128 @@
 {% extends "base.html" %}
-{% block meta %}
-    <title>login</title>
-{% endblock meta %}
+{% load static %}
+<title>Login</title>
 {% block content %}
-    <h1>login</h1>
-    <form method="post">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-            <tr>
-                <td></td>
-                <td>
-                    <button type="submit">login</button>
-                </td>
-            </tr>
-        </table>
-    </form>
-    {% if messages %}
-    <ul>
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    <p>don't have account? <a href="{% url "main:registration" %}">Register</a> here</p>
-{% endblock content %}
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <!-- Card wrapper -->
+        <div class="bg-white py-8 px-6 shadow-lg rounded-lg sm:px-10">
+            <img
+                class="mx-auto h-10 w-auto"
+                src="{% static 'image/logo.png' %}"
+                alt="Your Company"
+            />
+            <h2
+                class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
+            >
+                Sign in to your account
+            </h2>
+        
+            <form class="space-y-6 mt-8" action="#" method="POST" onsubmit="showLoader()">
+                {% csrf_token %}
+                <div>
+                    <label for="username" class="block text-sm font-medium leading-6 text-gray-900">
+                        Username
+                    </label>
+                    <div class="mt-2">
+                        <input
+                            id="username"
+                            name="username"
+                            type="text"
+                            autocomplete="username"
+                            required
+                            class="block w-full px-4 py-2 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none text-gray-900 placeholder-gray-400 sm:text-sm transition-all duration-300 ease-in-out hover:ring-2 hover:ring-indigo-300"
+                            placeholder="Enter your username"
+                        />
+                    </div>
+                </div>
 
+                <div>
+                    <label for="password" class="block text-sm font-medium leading-6 text-gray-900">
+                        Password
+                    </label>
+                    <div class="mt-2">
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            autocomplete="current-password"
+                            required
+                            class="block w-full px-4 py-2 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none text-gray-900 placeholder-gray-400 sm:text-sm transition-all duration-300 ease-in-out hover:ring-2 hover:ring-indigo-300"
+                            placeholder="Enter your password"
+                        />
+                    </div>
+                </div>
+
+                <!-- Remember Me & Forgot Password -->
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input
+                            id="remember-me"
+                            name="remember-me"
+                            type="checkbox"
+                            class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        />
+                        <label for="remember-me" class="ml-2 block text-sm text-gray-900">
+                            Remember me
+                        </label>
+                    </div>
+
+                    <div class="text-sm">
+                        <a href="{% url 'main:forgot_password' %}" class="font-semibold text-indigo-600 hover:text-indigo-500 hover:underline">
+                            Forgot password?
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div>
+                    <button
+                        type="submit"
+                        id="submit-btn"
+                        class="flex w-full justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-transform duration-300 hover:scale-105"
+                    >
+                        <span id="btn-text">Sign in</span>
+                        <span id="btn-loader" class="hidden loader"></span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Register Link -->
+            <p class="mt-6 text-center text-sm text-gray-500">
+                First time here?
+                <a href="{% url "main:registration" %}" class="font-semibold text-indigo-600 hover:text-indigo-500 hover:underline">
+                    Register Here
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Loader CSS -->
+<style>
+    .loader {
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-top: 2px solid white;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        animation: spin 0.6s linear infinite;
+        margin-left: 8px;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
+<!-- Loader Script -->
+<script>
+    function showLoader() {
+        document.getElementById('submit-btn').disabled = true;
+        document.getElementById('btn-text').classList.add('hidden');
+        document.getElementById('btn-loader').classList.remove('hidden');
+    }
+</script>
+
+{% endblock content %}

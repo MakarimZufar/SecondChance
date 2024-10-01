@@ -11,3 +11,10 @@ class Product(models.Model):
     category = models.CharField(max_length=225,default="uncategorized")
     price = models.IntegerField()
     description = models.TextField()
+    image = models.ImageField(upload_to='products/', null=True, blank=True)
+    
+    def __str__(self):
+        return self.name
+    
+    def is_in_stock(self):
+        return self.stock > 0

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}About{% endblock title %}
+{% block content %}
+<section class="bg-gray py-12">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row items-center">
+            <!-- Image Content -->
+            <div class="md:w-1/2">
+                <img
+                    src="{% static 'image/logo.png' %}" 
+                    alt="About Us Image"
+                    class="w-full h-auto"
+                />
+            </div>
+            <!-- Text Content -->
+            <div class="md:w-1/2 mt-8 md:mt-0 md:pl-6">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">About Us</h2>
+                <p class="text-gray-600 mb-6">
+                    SecondChance adalah aplikasi yang dirancang untuk membantu orang-orang menjual barang bekas yang masih layak pakai kepada orang lain. 
+                    Kami percaya bahwa barang yang tidak terpakai oleh seseorang mungkin masih bermanfaat bagi orang lain yang membutuhkannya.
+                    Dengan menggunakan aplikasi ini, pengguna dapat menawarkan barang yang tidak mereka butuhkan dengan harga terjangkau, 
+                    menciptakan solusi win-win bagi penjual dan pembeli.
+                </p>
+                <p class="text-gray-600 mb-6">
+                    Aplikasi ini adalah proyek yang dikerjakan oleh {{nama}} dengan NPM {{npm}}, 
+                    yang merupakan bagian dari kelas {{kelas}}. Kami berharap aplikasi ini dapat memberikan manfaat 
+                    dan membantu memperpanjang umur barang-barang yang masih berfungsi.
+                </p>
+                <a
+                    href="https://github.com/MakarimZufar/"
+                    class="bg-indigo-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-indigo-700 transition duration-300"
+                >
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

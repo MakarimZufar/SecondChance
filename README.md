@@ -1090,3 +1090,17 @@ path('delete/<uuid:id>/', views.delete_product, name="delete_product"),
 2.  mobile
 ![mobile_navbar_interface](Images_readme/mobile_navbar_interface.png)
 
+
+### fitur tambahan
+1. main html
+![main_interface](Images_readme/main_interface.png)
+fitur ini memungkinkan semua user dapat melihat produk yang di buat oleh user lain karena ini adalah website jual beli antar user tetapi ketika bukan produk kita, tidak akan muncul di my product dan tidak dapat di edit
+terdapat category yang sudah di setting oleh saya dan berjumlah 11 category yang bisa di masukkan
+terdapat interface in sotck atau out of stock tergantung jumlah yang ada
+2. highlight interface
+![highlight_interface](Images_readme/highlight_interface.png)
+ini adalah fitur yang membuat gambar pada card dapat dilihat secara jelas
+3. about us
+![about_us_interface](Images_readme/about_us_interface.png)
+halaman yang berisi keterangan tentang web ini
+4. foto default jika user tidak mengupload gambar product

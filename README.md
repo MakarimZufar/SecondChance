@@ -12,6 +12,9 @@ SecondChance adalah platform e-commerce yang menjual barang preloved dengan foku
 
 [README tugas 4](#tugas-4)
 
+[README tugas 5](#tugas-5)
+
+
 ## tugas 2
 
 
@@ -824,3 +827,225 @@ import os
 PRODUCTION = os.getenv("PRODUCTION", False)
 DEBUG = not PRODUCTION
 ```
+
+## tugas 5
+
+### Prioritas Pengambilan CSS Selector
+
+Ketika sebuah elemen HTML memiliki beberapa CSS selector yang mengatur gaya, browser akan menentukan mana yang diterapkan berdasarkan **spesifisitas** dan **urutan deklarasi**. Berikut adalah urutan prioritasnya:
+
+#### 1. Spesifisitas Selector
+Spesifisitas menentukan seberapa kuat suatu selector dibandingkan dengan selector lainnya. Berikut adalah urutan spesifisitas dari yang terendah hingga tertinggi:
+
+- **Selector Universal** (`*`): Memiliki spesifisitas paling rendah.
+- **Selector Elemen/Tag** (`div`, `p`, `h1`, dll.): Spesifisitas lebih tinggi dibandingkan selector universal.
+- **Selector Kelas** (`.class`), **Pseudo-Class** (`:hover`, `:focus`), dan **Atribut** (`[type="text"]`): Spesifisitas lebih tinggi dibandingkan selector elemen.
+- **Selector ID** (`#id`): Spesifisitas lebih tinggi dibandingkan selector kelas.
+- **Inline Styles**: Gaya yang didefinisikan langsung dalam elemen HTML menggunakan atribut `style` memiliki prioritas lebih tinggi dibandingkan semua selector di atas.
+- **`!important`**: Gaya yang menggunakan `!important` selalu menang, terlepas dari spesifisitas selector lain.
+
+**Contoh perhitungan spesifisitas:**
+
+- `h1 {}` → (0, 0, 0, 1)
+- `.class {}` → (0, 0, 1, 0)
+- `#id {}` → (0, 1, 0, 0)
+- `div p .class {}` → (0, 0, 1, 2)
+
+Selector dengan spesifisitas yang lebih tinggi akan menang.
+
+#### 2. Urutan Deklarasi (Cascading)
+Jika dua selector memiliki spesifisitas yang sama, aturan yang dideklarasikan terakhir dalam file CSS akan diterapkan.
+
+**Contoh:**
+
+```css
+p {
+    color: red;
+}
+
+p {
+    color: blue;
+}
+```
+#### 3. Pewarisan (Inheritance)
+Beberapa properti CSS diwariskan dari elemen induk ke elemen anaknya. Properti seperti `color` dan `font-family` secara default diwariskan, sedangkan properti seperti `margin`, `padding`, dan `border` tidak diwariskan.
+
+Inheritance hanya berlaku jika tidak ada deklarasi eksplisit yang mengesampingkan properti tersebut. Sebagai contoh, jika `color` diatur di elemen induk, elemen anak akan mewarisinya kecuali jika ada aturan lain yang secara eksplisit mengubah `color` di elemen anak.
+
+**Contoh:**
+
+```css
+div {
+    color: red;
+}
+```
+#### 4. Aturan `!important`
+
+Deklarasi CSS yang menggunakan `!important` akan selalu memiliki prioritas tertinggi, bahkan mengesampingkan selector dengan spesifisitas lebih tinggi. Aturan ini digunakan untuk memaksa suatu properti diterapkan, mengabaikan prioritas dari aturan lainnya.
+
+Namun, jika ada beberapa aturan yang menggunakan `!important`, maka spesifisitas selector tetap berlaku. Selector dengan spesifisitas yang lebih tinggi akan menang, meskipun semuanya menggunakan `!important`.
+
+**Contoh:**
+
+```css
+p {
+    color: red !important;
+}
+
+#special {
+    color: blue !important;
+}
+p {
+    /* Elemen <p> mewarisi warna dari <div> jika tidak ada aturan eksplisit */
+}
+```
+
+
+### Pentingnya Responsive Design dalam Pengembangan Aplikasi Web
+
+**Responsive design** adalah konsep yang sangat penting dalam pengembangan aplikasi web karena memastikan bahwa tampilan dan fungsi aplikasi dapat menyesuaikan dengan berbagai ukuran layar dan perangkat. Di bawah ini adalah alasan utama mengapa responsive design penting serta contoh aplikasi yang sudah dan belum menerapkan responsive design.
+
+#### Mengapa Responsive Design Penting?
+
+##### 1. Pengalaman Pengguna yang Lebih Baik
+Aplikasi yang responsif memberikan pengalaman yang lebih baik kepada pengguna dengan menyesuaikan tata letak, ukuran font, gambar, dan elemen interaktif sesuai dengan ukuran layar. Hal ini memastikan bahwa konten tetap mudah diakses dan nyaman dilihat di perangkat apa pun, baik itu desktop, tablet, atau smartphone.
+
+##### 2. Meningkatkan Keterjangkauan (Accessibility)
+Dengan semakin banyaknya pengguna yang mengakses web dari perangkat mobile, responsive design memastikan aplikasi dapat diakses oleh audiens yang lebih luas, tanpa perlu membuat versi aplikasi yang berbeda untuk setiap perangkat.
+
+##### 3. Optimasi SEO (Search Engine Optimization)
+Google dan mesin pencari lainnya memberikan peringkat lebih baik kepada situs web yang responsif karena menyediakan pengalaman pengguna yang lebih baik di semua perangkat. Desain responsif juga mengurangi kebutuhan untuk membuat URL atau situs yang berbeda untuk mobile dan desktop, yang dapat membingungkan mesin pencari.
+
+##### 4. Biaya dan Waktu Pengembangan yang Lebih Efisien
+Daripada membuat situs web yang berbeda untuk desktop dan perangkat mobile, responsive design memungkinkan satu situs untuk menyesuaikan diri dengan berbagai perangkat. Ini menghemat biaya pengembangan dan pemeliharaan secara signifikan.
+
+##### 5. Adaptasi Terhadap Perangkat Masa Depan
+Dengan responsive design, aplikasi web lebih siap menghadapi perangkat baru yang mungkin memiliki resolusi layar yang berbeda. Dengan ini, situs tidak memerlukan perubahan besar ketika perangkat baru diluncurkan.
+
+#### Contoh Aplikasi yang Sudah Menerapkan Responsive Design
+
+##### 1. Twitter
+Twitter menerapkan responsive design dengan sangat baik. Ketika diakses dari perangkat apapun, tampilan Twitter akan menyesuaikan dengan ukuran layar, baik di smartphone, tablet, atau desktop, sehingga memberikan pengalaman pengguna yang konsisten dan nyaman.
+
+##### 2. Google Search
+Halaman pencarian Google adalah contoh klasik dari responsive design yang sederhana namun sangat efektif. Tidak peduli ukuran layar, Google Search selalu mudah digunakan dan terlihat bersih serta fungsional.
+
+#### Contoh Aplikasi yang Belum Menerapkan Responsive Design
+
+##### 1. Situs Kecil atau Usaha Kecil yang Belum Modern
+Banyak situs web kecil atau usaha kecil yang belum diperbarui dan masih menggunakan desain statis yang hanya terlihat baik di desktop. Ketika diakses melalui perangkat mobile, pengguna sering kali harus melakukan zoom in atau scroll secara horizontal untuk melihat seluruh halaman. Contoh ini sering ditemukan pada website bisnis kecil yang belum dioptimalkan untuk mobile.
+
+##### 2. Versi Lama dari Beberapa Situs Pemerintah
+Beberapa situs pemerintah di berbagai negara, terutama yang belum diperbarui, tidak menggunakan responsive design. Situs-situs ini biasanya dibuat dengan desain lama yang tidak menyesuaikan dengan perangkat modern, sehingga menyulitkan pengguna ponsel untuk mengakses informasi dengan mudah.
+
+#### Kesimpulan
+Responsive design merupakan elemen kunci dalam memastikan aplikasi web dapat diakses oleh berbagai perangkat dengan ukuran layar berbeda. Dengan responsive design, pengguna dapat mengakses aplikasi dengan nyaman dari desktop, tablet, atau smartphone tanpa mengalami kesulitan navigasi atau tampilan yang tidak sesuai. Responsive design memberikan pengalaman yang lebih baik, meningkatkan aksesibilitas, optimasi SEO, dan efisiensi dalam pengembangan serta pemeliharaan aplikasi.
+
+### Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+
+1. Margin
+Margin adalah ruang di luar elemen yang memisahkannya dari elemen lain. Margin digunakan untuk mengatur jarak antara elemen di halaman web.
+Margin tidak mempengaruhi ukuran elemen itu sendiri, melainkan hanya menambah ruang di luar elemen tersebut.
+```
+/* Menetapkan margin sama di semua sisi */
+.element {
+    margin: 20px;
+}
+
+/* Menetapkan margin yang berbeda untuk setiap sisi */
+.element {
+    margin-top: 10px;
+    margin-right: 15px;
+    margin-bottom: 20px;
+    margin-left: 5px;
+}
+
+/* Menetapkan margin menggunakan shorthand */
+.element {
+    margin: 10px 15px 20px 5px; /* Atas, Kanan, Bawah, Kiri */
+}
+```
+
+2. Border
+Border adalah garis yang mengelilingi elemen. Border berada di antara margin dan padding. Border dapat memiliki warna, ketebalan, dan gaya (solid, dashed, dotted, dll.).
+Border mempengaruhi ukuran elemen secara visual karena menambah garis di luar elemen itu sendiri.
+Cara Menggunakan Border:
+```
+/* Menetapkan border di semua sisi */
+.element {
+    border: 2px solid black;
+}
+
+/* Menetapkan border hanya di satu sisi */
+.element {
+    border-top: 3px dashed red;
+}
+
+/* Border shorthand */
+.element {
+    border: 1px solid blue;
+}
+```
+
+3. Padding
+Padding adalah ruang di dalam elemen, antara konten elemen dan border. Padding memperbesar jarak antara konten (misalnya teks atau gambar) dan tepi dalam dari elemen.
+Padding akan menambah ukuran elemen secara internal tanpa menambah ruang di luar elemen itu sendiri.
+Cara Menggunakan Padding:
+```
+/* Menetapkan padding sama di semua sisi */
+.element {
+    padding: 20px;
+}
+
+/* Menetapkan padding yang berbeda untuk setiap sisi */
+.element {
+    padding-top: 10px;
+    padding-right: 15px;
+    padding-bottom: 20px;
+    padding-left: 5px;
+}
+
+/* Padding shorthand */
+.element {
+    padding: 10px 15px 20px 5px; /* Atas, Kanan, Bawah, Kiri */
+}
+```
+
+### Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+1. Flexbox (Flexible Box Layout)
+Flexbox adalah model tata letak di CSS yang dirancang untuk mengatur elemen dalam satu dimensi, baik secara horizontal (baris) maupun vertikal (kolom). Flexbox sangat berguna untuk membuat tata letak yang fleksibel dan responsif tanpa perlu menggunakan banyak float atau positioning.
+
+Konsep Utama Flexbox:
+Main Axis: Arah utama di mana elemen diatur (secara default horizontal).
+Cross Axis: Arah sebaliknya dari main axis (secara default vertikal).
+Flex Container: Elemen induk yang memiliki properti display: flex;, yang membuat semua anaknya menjadi flex items.
+Flex Items: Elemen-elemen yang berada di dalam flex container dan diatur berdasarkan properti flex.
+Kegunaan Flexbox:
+Mengatur elemen secara horizontal atau vertikal.
+Mempermudah pembuatan layout responsif.
+Mengelola spasi antar elemen dengan mudah.
+Mengontrol alignment dan distribusi elemen dalam sebuah container.
+
+2. Grid Layout
+Grid Layout adalah model tata letak dua dimensi yang lebih kuat dan kompleks dibandingkan Flexbox. Grid memungkinkan pengaturan elemen dalam baris dan kolom secara bersamaan, membuatnya sangat ideal untuk desain yang lebih kompleks seperti tata letak halaman web yang penuh.
+
+Konsep Utama Grid Layout:
+Grid Container: Elemen induk yang memiliki properti display: grid;, yang mengubah semua elemen di dalamnya menjadi grid items.
+Grid Items: Elemen-elemen yang diatur di dalam grid container.
+Grid Tracks: Baris dan kolom dalam grid.
+Grid Cells: Ruang persegi yang dibentuk di antara baris dan kolom.
+Kegunaan Grid Layout:
+Mengatur elemen secara dua dimensi (baris dan kolom) secara simultan.
+Membuat tata letak halaman yang kompleks dan terstruktur dengan mudah.
+Menyusun elemen-elemen dalam template grid yang responsif dan fleksibel.
+Kontrol lebih detail terhadap tata letak dibanding Flexbox.
+
+### step by step pembuatan
+#### membuat fungsi edit dan delete product
+#### Kustomisasi halaman login, register, dan tambah product semenarik mungkin.
+#### Kustomisasi halaman daftar product menjadi lebih menarik dan responsive. Kemudian, perhatikan kondisi berikut:
+1. Jika pada aplikasi belum ada product yang tersimpan, halaman daftar product akan menampilkan gambar dan pesan bahwa belum ada product yang terdaftar.
+2. Jika sudah ada product yang tersimpan, halaman daftar product akan menampilkan detail setiap product dengan menggunakan card (tidak boleh sama persis dengan desain pada Tutorial!).
+#### Untuk setiap card product, buatlah dua buah button untuk mengedit dan menghapus product pada card tersebut!
+#### Buatlah navigation bar (navbar) untuk fitur-fitur pada aplikasi yang responsive terhadap perbedaan ukuran device, khususnya mobile dan desktop.
+

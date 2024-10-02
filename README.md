@@ -1,4 +1,4 @@
-# SecondChance
+![image](https://github.com/user-attachments/assets/a4181a8d-2e97-4242-b498-2f0bc300e7cf)# SecondChance
 
 SecondChance adalah platform e-commerce yang menjual barang preloved dengan fokus pada keberlanjutan dan penghematan.
 
@@ -1042,10 +1042,51 @@ Kontrol lebih detail terhadap tata letak dibanding Flexbox.
 
 ### step by step pembuatan
 #### membuat fungsi edit dan delete product
+1. mebuat fungsi views
+```
+def edit_product(request, id):
+    product = Product.objects.get(id=id)
+    form = ProductEntry(instance=product)
+    if request.method == 'POST':
+        form = ProductEntry(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('main:show_main'))
+    return render(request, 'edit_product.html', {'form': form})
+
+def delete_product(request, id):
+    product = Product.objects.get(id=id)
+    product.delete()
+    return redirect ('main:show_main')
+```
+2. routing di `url.py`
+```
+path('edit_product/<uuid:id>/', views.edit_product, name="edit_product"),
+path('delete/<uuid:id>/', views.delete_product, name="delete_product"),
+```
+3. membuat template untuk edit dan delete
+- edit
+!(Images_readme/edit_product_interface.png)[edit_product_interface]
+-delete
+!(Images_readme/delete_product_interface.png)[delete_product_interface]
 #### Kustomisasi halaman login, register, dan tambah product semenarik mungkin.
+1. login
+!(Images_readme/login_interface.png)[login_interface]
+2. register
+!(Images_readme/register_interface.png)[register_interface]
+3. tambah produk
+!(Images_readme/add_product_interface.png)[add_product_interface]
+
 #### Kustomisasi halaman daftar product menjadi lebih menarik dan responsive. Kemudian, perhatikan kondisi berikut:
 1. Jika pada aplikasi belum ada product yang tersimpan, halaman daftar product akan menampilkan gambar dan pesan bahwa belum ada product yang terdaftar.
+!(Images_readme/empty_product_interface.png)[empty_product_interface]
 2. Jika sudah ada product yang tersimpan, halaman daftar product akan menampilkan detail setiap product dengan menggunakan card (tidak boleh sama persis dengan desain pada Tutorial!).
+!(Images_readme/card_product_interface.png)[card_product_interface]
 #### Untuk setiap card product, buatlah dua buah button untuk mengedit dan menghapus product pada card tersebut!
+!(Images_readme/card_product_interface.png)[card_product_interface]
 #### Buatlah navigation bar (navbar) untuk fitur-fitur pada aplikasi yang responsive terhadap perbedaan ukuran device, khususnya mobile dan desktop.
+1.  desktop
+!(Images_readme/desktop_navbar_interface.png)[desktop_navbar_interface]
+2.  mobile
+!(Images_readme/mobile_navbar_interface.png)[mobile_navbar_interface]
 

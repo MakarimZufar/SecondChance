@@ -1042,10 +1042,65 @@ Kontrol lebih detail terhadap tata letak dibanding Flexbox.
 
 ### step by step pembuatan
 #### membuat fungsi edit dan delete product
+1. mebuat fungsi views
+```
+def edit_product(request, id):
+    product = Product.objects.get(id=id)
+    form = ProductEntry(instance=product)
+    if request.method == 'POST':
+        form = ProductEntry(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('main:show_main'))
+    return render(request, 'edit_product.html', {'form': form})
+
+def delete_product(request, id):
+    product = Product.objects.get(id=id)
+    product.delete()
+    return redirect ('main:show_main')
+```
+2. routing di `url.py`
+```
+path('edit_product/<uuid:id>/', views.edit_product, name="edit_product"),
+path('delete/<uuid:id>/', views.delete_product, name="delete_product"),
+```
+3. membuat template untuk edit dan delete
+- edit
+![edit_product_interface](Images_readme/edit_product_interface.png)
+-delete
+![delete_product_interface](Images_readme/delete_product_interface.png)
 #### Kustomisasi halaman login, register, dan tambah product semenarik mungkin.
+1. login
+![login_interface](Images_readme/login_interface.png)
+2. register
+![register_interface](Images_readme/register_interface.png)
+3. tambah produk
+![add_product_interface](Images_readme/add_product_interface.png)
+
 #### Kustomisasi halaman daftar product menjadi lebih menarik dan responsive. Kemudian, perhatikan kondisi berikut:
 1. Jika pada aplikasi belum ada product yang tersimpan, halaman daftar product akan menampilkan gambar dan pesan bahwa belum ada product yang terdaftar.
+![empty_product_interface](Images_readme/empty_product_interface.png)
 2. Jika sudah ada product yang tersimpan, halaman daftar product akan menampilkan detail setiap product dengan menggunakan card (tidak boleh sama persis dengan desain pada Tutorial!).
+![card_product_interface](Images_readme/card_product_interface.png)
 #### Untuk setiap card product, buatlah dua buah button untuk mengedit dan menghapus product pada card tersebut!
+![card_product_interface](Images_readme/card_product_interface.png)
 #### Buatlah navigation bar (navbar) untuk fitur-fitur pada aplikasi yang responsive terhadap perbedaan ukuran device, khususnya mobile dan desktop.
+1.  desktop
+![desktop_navbar_interface](Images_readme/desktop_navbar_interface.png)
+2.  mobile
+![mobile_navbar_interface](Images_readme/mobile_navbar_interface.png)
 
+
+### fitur tambahan
+1. main html
+![main_interface](Images_readme/main_interface.png)
+fitur ini memungkinkan semua user dapat melihat produk yang di buat oleh user lain karena ini adalah website jual beli antar user tetapi ketika bukan produk kita, tidak akan muncul di my product dan tidak dapat di edit
+terdapat category yang sudah di setting oleh saya dan berjumlah 11 category yang bisa di masukkan
+terdapat interface in sotck atau out of stock tergantung jumlah yang ada
+2. highlight interface
+![highlight_interface](Images_readme/highlight_interface.png)
+ini adalah fitur yang membuat gambar pada card dapat dilihat secara jelas
+3. about us
+![about_us_interface](Images_readme/about_us_interface.png)
+halaman yang berisi keterangan tentang web ini
+4. foto default jika user tidak mengupload gambar product

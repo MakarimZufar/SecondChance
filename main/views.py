@@ -13,17 +13,18 @@ import datetime
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.conf.urls import handler404
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from django.utils.html import strip_tags
 
 
 
 @login_required(login_url='main:login')
 def show_main(request):
-    all_products = Product.objects.all()
     context = {
         "nama": request.user.username,
         "npm": "2306241751",
         "kelas": "PBP D",
-        "products": all_products,
         "last_login": request.COOKIES.get('last_login')
     }
     return render(request, 'main.html', context)  
@@ -47,12 +48,31 @@ def add_product(request):
         form = ProductEntry()
     return render(request, 'add_product.html', {'form': form})
 
+@csrf_exempt
+@require_POST
+def add_product_by_ajax(request):
+    user = request.user
+    name = strip_tags(request.POST.get('name'))
+    stock = request.POST.get('stock')
+    category = request.POST.get('category')
+    price = request.POST.get('price')
+    description = request.POST.get('description')
+    image = request.FILES.get('image')
+    new_product = Product(user=user, name=name, stock=stock, category=category, price=price, description=description, image=image)
+    new_product.save()
+    return HttpResponse(b"Product added successfully", status=201)
+
+
 def show_xml(request):
-    data = Product.objects.all()
+    data = Product.objects.filter(user = request.user)
     return HttpResponse(serializers.serialize('xml', data), content_type='application/xml') 
 
-def show_json(request):
+def show_json_all(request):
     data = Product.objects.all()
+    return HttpResponse(serializers.serialize('json', data), content_type='application/json')
+
+def show_json_user(request):
+    data = Product.objects.filter(user = request.user)
     return HttpResponse(serializers.serialize('json', data), content_type='application/json')
 
 def show_xml_by_id(request, id):

@@ -7,7 +7,8 @@ app_name = "main"
 urlpatterns = [
     path('', views.show_main, name="show_main"),
     path('xml/', views.show_xml, name="show_xml"),
-    path('json/', views.show_json, name="show_json"),
+    path('json_user/', views.show_json_user, name="show_json_user"),
+    path('json_all/', views.show_json_all, name="show_json_all"),
     path('xml/<uuid:id>/', views.show_xml_by_id, name="show_xml_by_id"),
     path('json/<uuid:id>/', views.show_json_by_id, name="show_json_by_id"),
     path('registration/', views.registration, name="registration"),
@@ -21,6 +22,7 @@ urlpatterns = [
     path('forgo-pasword/', views.forgot_password, name='forgot_password'),
     path('about/', views.about, name='about'),
     path('my-products/', views.show_my_products, name='my_products'),
+    path('add_product_ajax/', views.add_product_by_ajax, name='add_product_ajax'),
 ]
 
 # Hanya untuk development, supaya file media bisa diakses

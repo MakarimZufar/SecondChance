@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from main.models import Product
 from django import forms
+from django.utils.html import strip_tags
 
 CATEGORY_CHOICES = [
     ('Uncategorized', 'Uncategorized'),
@@ -22,3 +23,6 @@ class ProductEntry(ModelForm):
     class Meta:
         model = Product
         fields = ['name', 'stock', 'category', 'price', 'description','image']
+        def clean_mood(self):
+            name = self.cleaned_data["name"]
+            return strip_tags(name)

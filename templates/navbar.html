@@ -47,7 +47,7 @@
         <a href="{% url 'main:my_products' %}" class="text-white w-full hover:bg-gray-700 px-3 py-2 rounded-md" style="display: block">My Product</a>
         <a href="{% url 'main:about' %}" class="text-white w-full hover:bg-gray-700 px-3 py-2 rounded-md" style="display: block">About</a>
         <a href="#" class="text-white w-full hover:bg-gray-700 px-3 py-2 rounded-md" style="display: block">Calendar</a>
-        <a href="{% url 'main:add_product' %}" class="bg-green-500 text-white w-full px-3 py-2 rounded-md hover:bg-green-600" style="display: block">+ Add Product</a>
+        <a href="{% url 'main:add_product_ajax' %}" class="bg-green-500 text-white w-full px-3 py-2 rounded-md hover:bg-green-600"onclick = "showModalAdd();" style="display: block">+ Add Product</a>
         <a href="{% url 'main:logout' %}" class="bg-red-500 text-white w-full px-3 py-2 rounded-md hover:bg-red-700" style="display: block">Log Out</a>
     </div>
 </nav>

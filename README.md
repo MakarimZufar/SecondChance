@@ -14,6 +14,8 @@ SecondChance adalah platform e-commerce yang menjual barang preloved dengan foku
 
 [README tugas 5](#tugas-5)
 
+[README tugas 6](#tugas-6)
+
 
 ## tugas 2
 
@@ -1104,3 +1106,170 @@ ini adalah fitur yang membuat gambar pada card dapat dilihat secara jelas
 ![about_us_interface](Images_readme/about_us_interface.png)
 halaman yang berisi keterangan tentang web ini
 4. foto default jika user tidak mengupload gambar product
+
+## tugas 6
+### Manfaat Penggunaan JavaScript dalam Pengembangan Aplikasi Web
+JavaScript merupakan bahasa pemrograman yang digunakan untuk membuat halaman web menjadi interaktif. Beberapa manfaatnya adalah:
+1. **Interaktivitas:** JavaScript memungkinkan pengguna untuk berinteraksi dengan halaman web tanpa harus memuat ulang seluruh halaman, seperti efek klik, hover, atau drag-and-drop.
+2. **Pengalaman Pengguna yang Lebih Baik:** Dengan JavaScript, kita bisa memperbarui konten secara dinamis, seperti AJAX yang memungkinkan pengambilan data dari server tanpa reload.
+3. **Validasi Input di Frontend:** JavaScript dapat melakukan validasi dasar input pengguna sebelum dikirim ke server, mengurangi beban server dari permintaan yang tidak valid.
+4. **Responsif:** JavaScript membuat aplikasi lebih cepat dan responsif dengan mengurangi komunikasi antara klien dan server.
+
+### Fungsi Await pada Fetch
+`await` digunakan untuk menunggu hasil dari fungsi asynchronous, seperti `fetch()`, yang mengembalikan Promise. `fetch()` digunakan untuk mengambil data dari server, dan menggunakan `await` menunggu hasilnya sebelum melanjutkan eksekusi kode berikutnya.
+
+**Fungsi `await` dalam `fetch`:**
+```javascript
+const response = await fetch('url'); // Menunggu sampai fetch selesai dan memberikan hasil
+```
+
+Jika kita **tidak menggunakan `await`**, kode akan terus berjalan tanpa menunggu hasil dari `fetch()`. Ini bisa menyebabkan bug karena hasil `fetch` mungkin belum tersedia ketika kita mencoba menggunakannya.
+
+### Penggunaan `csrf_exempt` pada AJAX POST
+Decorator `csrf_exempt` digunakan untuk mengecualikan view dari pengecekan CSRF (Cross-Site Request Forgery). AJAX POST biasanya tidak mengirimkan CSRF token secara otomatis, sehingga Django akan memblokir permintaan POST tanpa token yang valid. Dengan menggunakan `csrf_exempt`, kita memberi izin pada Django untuk menerima request AJAX meskipun tidak ada CSRF token.
+
+Namun, **`csrf_exempt` mengurangi keamanan**, sehingga lebih baik digunakan pada situasi tertentu atau saat pengembangan.
+
+### Alasan Pembersihan Data Input di Backend
+Pembersihan data input tidak hanya dilakukan di frontend karena:
+1. **Keamanan:** Frontend bisa dimanipulasi oleh pengguna, jadi backend harus memverifikasi dan membersihkan data untuk memastikan validitas dan keamanan input.
+2. **Konsistensi:** Validasi di backend memastikan bahwa semua input diproses dengan aturan yang sama, meskipun pengguna tidak menggunakan frontend yang kita sediakan.
+3. **Menjaga Integritas Data:** Backend bertanggung jawab untuk memastikan data yang masuk ke database benar-benar valid, terlepas dari apa yang terjadi di sisi frontend.
+
+Meskipun validasi di frontend membantu mengurangi request tidak valid, validasi di backend adalah lapisan perlindungan terakhir yang sangat penting.
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+untuk kali ini lebih ke pembuatan script dari javascript
+1. pembuatan AJAX `get`
+   ```
+   async function getAllProduct() {
+        return fetch("{% url 'main:show_json_all' %}").then((res) =>
+            res.json()
+        );
+    }
+
+    async function refreshProductAll() {
+        document.getElementById("productgweh").innerHTML = "";
+        document.getElementById("productgweh").className = "";
+        const products = await getAllProduct();
+        let htmlString = "";
+        let classNameString = "";
+
+        if (products.length == 0) {
+            classNameString = "flex flex-col items-center space-y-4";
+            htmlString = `
+                    <img src="{% static 'image/lah_kok_bisa.jpg' %}" alt="No Products" class="w-48 h-auto mx-auto mt-4">
+                    <p class="text-gray-600 text-lg text-center">Oops, you don't have any products yet!</p>
+                    <a href="{% url 'main:add_product' %}" class="bg-green-500 text-white font-bold px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300 mx-auto mt-4">No products yet, be the first to add one!</a>`;
+        } else {
+            classNameString =
+                "grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 p-4";
+            products.forEach((product) => {
+                htmlString += `
+                    <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105 cursor-pointer"
+                    onclick="openModal('${product.fields.name}', '${
+                    product.fields.image
+                        ? "/media/" + product.fields.image
+                        : '{% static "image/default_product_image.jpg" %}'
+                }', '${product.fields.price}', '${
+                    product.fields.description
+                }')">
+                    <img src="${
+                        product.fields.image
+                            ? "/media/" + product.fields.image
+                            : '{% static "image/default_product_image.jpg" %}'
+                    }" alt="${
+                    product.fields.name
+                }" class="w-full h-36 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">${
+                            product.fields.name
+                        }</h3>
+                        <p class="text-sm text-gray-600 mb-2">Created by: ${
+                            product.fields.user.username
+                        }</p>
+                        <div class="flex items-center mb-2">
+                            <span class="inline-block px-2 py-1 bg-gradient-to-r from-purple-500 to-indigo-500 text-white text-xs font-semibold rounded-full uppercase tracking-wide">
+                                ${product.fields.category}
+                            </span>
+                        </div>
+                        <span class="inline-block ${
+                            product.fields.stock > 0
+                                ? "bg-green-100 text-green-800"
+                                : "bg-red-100 text-red-800"
+                        } text-xs px-2 py-1 rounded-full uppercase font-semibold tracking-wide">
+                            ${
+                                product.fields.stock > 0
+                                    ? "In Stock"
+                                    : "Out of Stock"
+                            }
+                        </span>
+                        <p class="text-md font-bold text-indigo-600 mt-2">Rp ${
+                            product.fields.price
+                        }</p>
+                        <p class="text-sm text-gray-600 mb-4">Description: ${
+                            product.fields.description
+                        }</p>
+                    </div>
+                </div>
+                    `;
+            });
+        }
+        document.getElementById("productgweh").className = classNameString;
+        document.getElementById("productgweh").innerHTML = htmlString;
+    }
+    refreshProductAll();
+   ```
+   fungsi script di atas adalah untuk mengubah style dan ini html ketika kondisi tertentu
+   jika kondisi sedang tidak ada barang akan menampilkan gambar static dan ketika ada barang akan menampilkan card barang barang
+2. pembuatan AJAX `post`
+```
+function addProductEntry() {
+        fetch("{% url 'main:add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector("#addProduct")),
+        }).then((response) => refreshProductAll());
+
+        document.getElementById("addProduct").reset();
+        document.querySelector("[data-modal-toggle='crudModal']").click();
+
+        return false;
+    }
+const modal = document.getElementById("crudModal");
+    const modalContent = document.getElementById("crudModalContent");
+
+    function showModal() {
+        const modal = document.getElementById("crudModal");
+        const modalContent = document.getElementById("crudModalContent");
+
+        modal.classList.remove("hidden");
+        setTimeout(() => {
+            modalContent.classList.remove("opacity-0", "scale-95");
+            modalContent.classList.add("opacity-100", "scale-100");
+        }, 50);
+    }
+
+    function hideModal() {
+        const modal = document.getElementById("crudModal");
+        const modalContent = document.getElementById("crudModalContent");
+
+        modalContent.classList.remove("opacity-100", "scale-100");
+        modalContent.classList.add("opacity-0", "scale-95");
+
+        setTimeout(() => {
+            modal.classList.add("hidden");
+        }, 150);
+    }
+
+    document
+        .getElementById("cancelButton")
+        .addEventListener("click", hideModal);
+    document
+        .getElementById("closeModalBtn")
+        .addEventListener("click", hideModal);
+    document.getElementById("addProduct").addEventListener("submit", (e) => {
+        e.preventDefault();
+        addProductEntry();
+    });
+```
+fungsi dia atas untuk menambahkan product dengan menampilkan card di tengah halaman dengan cara mengubah status display hidden menjadi tidak atau default dan menghubungkan script ajax ke tampilan views ajax

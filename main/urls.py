@@ -23,6 +23,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('my-products/', views.show_my_products, name='my_products'),
     path('add_product_ajax/', views.add_product_by_ajax, name='add_product_ajax'),
+    path('create-flutter/', create_mood_flutter, name='create_mood_flutter'),
 ]
 
 # Hanya untuk development, supaya file media bisa diakses

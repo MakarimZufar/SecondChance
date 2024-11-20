@@ -27,13 +27,15 @@ SECRET_KEY = "django-insecure-j1!wcuylv4q*j7ezvu99*5y^e12flpf8kj$$t$f8vyo8i6hg$g
 PRODUCTION = os.getenv("PRODUCTION", False)
 DEBUG = not PRODUCTION
 
-ALLOWED_HOSTS = ["localhost","127.0.0.1","makarim-zufar-secondchance.pbp.cs.ui.ac.id"]
+ALLOWED_HOSTS = ["localhost","127.0.0.1","makarim-zufar-secondchance.pbp.cs.ui.ac.id", "10.0.2.2"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
     "main",
+    "authentication",
+    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -52,6 +55,13 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None'
 
 ROOT_URLCONF = "SecondChance.urls"
 

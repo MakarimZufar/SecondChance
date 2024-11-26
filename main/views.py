@@ -58,10 +58,10 @@ def add_product(request):
 def add_product_by_ajax(request):
     user = request.user
     name = strip_tags(request.POST.get('name'))
-    stock = request.POST.get('stock')
-    category = request.POST.get('category')
-    price = request.POST.get('price')
-    description = request.POST.get('description')
+    stock = strip_tags(request.POST.get('stock'))
+    category = strip_tags(request.POST.get('category'))
+    price = strip_tags(request.POST.get('price'))
+    description = strip_tags(request.POST.get('description'))
     image = request.FILES.get('image')
     new_product = Product(user=user, name=name, stock=stock, category=category, price=price, description=description, image=image)
     new_product.save()
